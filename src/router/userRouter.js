@@ -8,12 +8,16 @@ const {
   userDeleteById,
   blockUser,
   unBlockUser,
+  handleRefreshToken,
+  logOut,
 } = require("../controller/userController");
 const verifyToken = require("../controller/verifyToken");
 
 const router = express.Router();
 router.post("/register", register);
 router.post("/login", login);
+router.get("/refreshtoken", handleRefreshToken);
+router.get("/logout", logOut);
 router.get("/", getAllUser);
 router.get("/:id", userGetById);
 router.put("/:id", verifyToken, userUpdateById);
