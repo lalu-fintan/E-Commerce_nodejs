@@ -11,7 +11,7 @@ const {
   handleRefreshToken,
   logOut,
 } = require("../controller/userController");
-const verifyToken = require("../controller/verifyToken");
+const verifyToken = require("../middleware/verifyToken");
 
 const router = express.Router();
 router.post("/register", register);
