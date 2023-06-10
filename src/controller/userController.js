@@ -1,8 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const userModel = require("../model/userModel");
 const genreateRefreshToken = require("../config/refreshToken");
+const sendEmail = require("../middleware/emailControl");
 
 //register user
 const register = asyncHandler(async (req, res) => {
@@ -28,10 +30,12 @@ const register = asyncHandler(async (req, res) => {
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await userModel.findOne({ email });
+  console.log(email);
+  console.log(password === user.password);
   // if (user && (await bcrypt.compare(password, user.password))) {
   //second method
   if (user && (await user.isPasswordMatched(password))) {
-    const refreshToken = await genreateRefreshToken(user.id);
+    const refreshToken = genreateRefreshToken(user.id);
 
     const updateUser = await userModel.findByIdAndUpdate(
       user.id,
@@ -119,6 +123,65 @@ const logOut = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "logout successfully" }); //forbitten
 });
 
+//reset password
+const updatePassword = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  const user = await userModel.findById(id);
+  if (password) {
+    user.password = password;
+    const updatedPassword = await user.save();
+    res.status(200).json(updatedPassword);
+  }
+  res.json(user);
+});
+
+//forget password token
+
+const forgotPasswordToken = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await userModel.findOne({ email });
+  if (!user) {
+    throw new Error("user not found in this email");
+  }
+  const token = await user.createResetPasswordToken();
+  await user.save();
+  const resetURL = `Hi ,Follow this link to reset  your password .This link is only valid for 10  min.<a href="http://localhost:5001/api/usr/password/${token}">Click link</a> `;
+  const data = {
+    to: email,
+    text: "Hey user",
+    subject: "reset password link",
+    html: resetURL,
+  };
+  sendEmail(data);
+  res.status(200).json(token);
+});
+
+//  forget password
+const resetPassword = asyncHandler(async (req, res) => {
+  const { password } = req.body;
+  const { token } = req.params;
+  console.log({ token });
+  const hash = crypto.createHash("sha256").update(token).digest("hex");
+  console.log({ hash });
+  const user = await userModel.findOne({
+    passwordResetToken: hash,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+  console.log(user);
+
+  if (!user) {
+    throw new Error("Token Expires");
+  }
+
+  user.password = password;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  await user.save();
+
+  res.status(200).json(user);
+});
+
 //get all user
 
 const getAllUser = asyncHandler(async (req, res) => {
@@ -197,4 +260,7 @@ module.exports = {
   unBlockUser,
   handleRefreshToken,
   logOut,
+  updatePassword,
+  forgotPasswordToken,
+  resetPassword,
 };
