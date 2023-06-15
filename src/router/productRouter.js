@@ -5,12 +5,14 @@ const {
   getProductById,
   updateProductById,
   deleteProductById,
+  addToWishlist,
 } = require("../controller/productController");
-const verifyToken = require("../middleware/verifyToken");
+const { verifyToken, authMidddleware } = require("../middleware/verifyToken");
 
 const router = express.Router();
 
 router.post("/", verifyToken, createProduct);
+router.put("/wishlist", authMidddleware, addToWishlist);
 router.get("/", getProduct);
 router.get("/:id", getProductById);
 router.put("/:id", verifyToken, updateProductById);

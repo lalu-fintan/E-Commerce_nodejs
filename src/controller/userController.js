@@ -50,7 +50,7 @@ const login = asyncHandler(async (req, res) => {
     });
     const validUser = jwt.sign(
       {
-        id: req.params.id,
+        id: user.id,
         email: user.email,
         password: user.password,
         role: user.role,

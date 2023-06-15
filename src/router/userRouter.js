@@ -14,7 +14,7 @@ const {
   forgotPasswordToken,
   resetPassword,
 } = require("../controller/userController");
-const verifyToken = require("../middleware/verifyToken");
+const { verifyToken, authMidddleware } = require("../middleware/verifyToken");
 
 const router = express.Router();
 router.post("/register", register);
