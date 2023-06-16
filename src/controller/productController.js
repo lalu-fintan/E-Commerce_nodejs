@@ -118,6 +118,26 @@ const addToWishlist = expressAsyncHandler(async (req, res) => {
   }
 });
 
+const rating = expressAsyncHandler(async (req, res) => {
+  const { id } = req.user;
+  const { star, prodId } = req.body;
+  const product = await Product.findById(prodId);
+  let alreadyRated = product.ratings.find(
+    (userId) => userId.postedby.toString() === id.toString()
+  );
+  if (alreadyRated) {
+  } else {
+    const reateProduct = await Product.findByIdAndUpdate(prodId, {
+      $push: {
+        ratings: {
+          star: star,
+          postedBy: prodId,
+        },
+      },
+    });
+  }
+});
+
 module.exports = {
   createProduct,
   getProduct,
