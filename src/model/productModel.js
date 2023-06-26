@@ -43,12 +43,14 @@ const productSchema = new mongoose.Schema(
       default: 0,
       // select: false //want to hide te sold in get method
     },
-    images: {
-      type: Array,
-    },
-    color: {
-      type: Array,
-    },
+    images: [
+      {
+        public_id: String,
+        url: String,
+      },
+    ],
+    color: [],
+    tags: [],
     ratings: [
       {
         star: Number,
@@ -56,7 +58,7 @@ const productSchema = new mongoose.Schema(
         postedby: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       },
     ],
-    tottalRating: {
+    totalRating: {
       type: String,
       default: 0,
     },

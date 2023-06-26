@@ -2,11 +2,24 @@ const expressAsyncHandler = require("express-async-handler");
 const Product = require("../model/productModel");
 const User = require("../model/userModel");
 const slugify = require("slugify");
-const { query } = require("express");
+const fs = require("fs");
+const {
+  cloudinaryUploadImg,
+  cloudinaryDeleteImg,
+} = require("../utilities/cloudinary");
 
 const createProduct = expressAsyncHandler(async (req, res) => {
-  const { title, slug, description, price, category, brand, color, quantity } =
-    req.body;
+  const {
+    title,
+    slug,
+    description,
+    price,
+    category,
+    brand,
+    color,
+    quantity,
+    tags,
+  } = req.body;
   const newProduct = await Product.create({
     title,
     slug: slugify(title),
@@ -16,6 +29,7 @@ const createProduct = expressAsyncHandler(async (req, res) => {
     brand,
     color,
     quantity,
+    tags,
   });
   res.status(200).json({ newProduct });
 });
@@ -118,24 +132,82 @@ const addToWishlist = expressAsyncHandler(async (req, res) => {
   }
 });
 
-const rating = expressAsyncHandler(async (req, res) => {
+const addRating = expressAsyncHandler(async (req, res) => {
   const { id } = req.user;
-  const { star, prodId } = req.body;
+  const { star, prodId, comment } = req.body;
   const product = await Product.findById(prodId);
   let alreadyRated = product.ratings.find(
-    (userId) => userId.postedby.toString() === id.toString()
+    (userId) => userId.postedby === id.toString()
   );
+  console.log(alreadyRated);
   if (alreadyRated) {
+    const updateRating = await Product.findOneAndUpdate(
+      {
+        ratings: { $elemMatch: alreadyRated },
+      },
+      {
+        $set: { "ratings.$.star": star, "ratings.$.comment": comment },
+      },
+      {
+        new: true,
+      }
+    );
   } else {
-    const reateProduct = await Product.findByIdAndUpdate(prodId, {
-      $push: {
-        ratings: {
-          star: star,
-          postedBy: prodId,
+    const rateProduct = await Product.findByIdAndUpdate(
+      prodId,
+      {
+        $push: {
+          ratings: {
+            star: star,
+            comment: comment,
+            postedBy: prodId,
+          },
         },
       },
-    });
+      { new: true }
+    );
   }
+  const getAllRatings = await Product.findById(prodId);
+  let totalRating = getAllRatings.ratings.length;
+  let ratingSum = getAllRatings.ratings
+    .map((item) => item.star)
+    .reduce((pre, current) => pre + current, 0);
+  let actualRating = Math.round(ratingSum / totalRating);
+  let finalProduct = await Product.findByIdAndUpdate(
+    prodId,
+    {
+      totalRating: actualRating,
+    },
+    { new: true }
+  );
+  res.status(200).json(finalProduct);
+});
+
+//bug 6
+
+const uploadImages = expressAsyncHandler(async (req, res) => {
+  const uploader = (path) => cloudinaryUploadImg(path, "images");
+  const urls = [];
+  const files = req.files;
+  for (const file of files) {
+    const { path } = file;
+
+    const newpath = await uploader(path);
+    urls.push(newpath);
+    fs.unlinkSync(path);
+    console.log({ urls });
+  }
+  const images = urls.map((file) => {
+    return file;
+  });
+  res.status(200).json(images);
+});
+
+const deleteImages = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const deleted = cloudinaryDeleteImg(id, "images");
+  res.status(200).json({ message: "Message deleted successfully" });
 });
 
 module.exports = {
@@ -145,4 +217,7 @@ module.exports = {
   updateProductById,
   deleteProductById,
   addToWishlist,
+  addRating,
+  uploadImages,
+  deleteImages,
 };

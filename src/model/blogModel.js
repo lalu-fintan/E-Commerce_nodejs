@@ -45,6 +45,7 @@ const blogSchema = new mongoose.Schema(
     author: {
       type: String,
     },
+    images: [],
   },
   {
     toJSON: {
