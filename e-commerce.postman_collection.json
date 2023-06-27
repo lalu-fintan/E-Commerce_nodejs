@@ -4,7 +4,7 @@
 		"name": "e-commerce",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21744904",
-		"_collection_link": "https://web.postman.co/workspace/auth~d66a1183-ba4e-4e2d-ba8f-661a1379a353/collection/21744904-6be4bb47-d05c-41ba-bc94-7aceaabc7145?action=share&creator=21744904&source=collection_link"
+		"_collection_link": "https://bold-water-265383.postman.co/workspace/auth~d66a1183-ba4e-4e2d-ba8f-661a1379a353/collection/21744904-6be4bb47-d05c-41ba-bc94-7aceaabc7145?action=share&creator=21744904&source=collection_link"
 	},
 	"item": [
 		{
@@ -721,8 +721,58 @@
 				{
 					"name": "upload  images",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4Nzg0Mzk1MCwiZXhwIjoxNjg3OTMwMzUwfQ.Mf-7w_ni8C4rpxnQTToWlEV4HPIE3l6Mpyp7Kevz6Pk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/home/laluprasath/Downloads/image.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_URL}}product/upload/",
+							"host": [
+								"{{base_URL}}product"
+							],
+							"path": [
+								"upload",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Image",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4Nzg0Mzk1MCwiZXhwIjoxNjg3OTMwMzUwfQ.Mf-7w_ni8C4rpxnQTToWlEV4HPIE3l6Mpyp7Kevz6Pk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_URL}}product/delete-image/2682d4db7c4c62c63b00acc8d616a912",
+							"host": [
+								"{{base_URL}}product"
+							],
+							"path": [
+								"delete-image",
+								"2682d4db7c4c62c63b00acc8d616a912"
+							]
+						}
 					},
 					"response": []
 				}
@@ -862,6 +912,40 @@
 							],
 							"path": [
 								"dislikes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload blog image",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4Nzg0Mzk1MCwiZXhwIjoxNjg3OTMwMzUwfQ.Mf-7w_ni8C4rpxnQTToWlEV4HPIE3l6Mpyp7Kevz6Pk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/home/laluprasath/Downloads/image.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_URL}}blog/upload/6485c8799360fe568e740eff",
+							"host": [
+								"{{base_URL}}blog"
+							],
+							"path": [
+								"upload",
+								"6485c8799360fe568e740eff"
 							]
 						}
 					},
@@ -1160,13 +1244,13 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4NzQ1OTEyMCwiZXhwIjoxNjg3NTQ1NTIwfQ.dxBqwSoF6od0gn4oKEQt-cqngXsP7ydTms69jUCnT5U",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4NzYyNTUxOCwiZXhwIjoxNjg3NzExOTE4fQ.H0DUzCdBsLnkteLrAFJG-UgWnX2g4LIoaPLQBRwPys8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"blue\"\n}",
+							"raw": "{\n    \"title\":\"orange\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1174,12 +1258,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_URL}}color/64949d03f7e861dde0eb031f",
+							"raw": "{{base_URL}}color/64971fdf35f5ee73597d233b",
 							"host": [
 								"{{base_URL}}color"
 							],
 							"path": [
-								"64949d03f7e861dde0eb031f"
+								"64971fdf35f5ee73597d233b"
 							]
 						}
 					},
@@ -1192,13 +1276,13 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4NzQ1OTEyMCwiZXhwIjoxNjg3NTQ1NTIwfQ.dxBqwSoF6od0gn4oKEQt-cqngXsP7ydTms69jUCnT5U",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4NzYyNTUxOCwiZXhwIjoxNjg3NzExOTE4fQ.H0DUzCdBsLnkteLrAFJG-UgWnX2g4LIoaPLQBRwPys8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"voilet\"\n}",
+							"raw": "{\n    \"title\":\"pink\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1298,7 +1382,7 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4NzUwMjg0NiwiZXhwIjoxNjg3NTg5MjQ2fQ.rUZAYJNMX3LcHArGsfRKYv6oHNQ8klxFAtQA8Fl8lBI",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4NzYyNTUxOCwiZXhwIjoxNjg3NzExOTE4fQ.H0DUzCdBsLnkteLrAFJG-UgWnX2g4LIoaPLQBRwPys8",
 								"type": "text"
 							}
 						],
@@ -1312,12 +1396,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_URL}}enquiry/6495b229d9cb27a2321a29f3",
+							"raw": "{{base_URL}}enquiry/64971f4135f5ee73597d2336",
 							"host": [
 								"{{base_URL}}enquiry"
 							],
 							"path": [
-								"6495b229d9cb27a2321a29f3"
+								"64971f4135f5ee73597d2336"
 							]
 						}
 					},
@@ -1330,13 +1414,13 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4NzUwMjg0NiwiZXhwIjoxNjg3NTg5MjQ2fQ.rUZAYJNMX3LcHArGsfRKYv6oHNQ8klxFAtQA8Fl8lBI",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2RlNGYzMWYzZWZkMTU0NDczM2RkNSIsImVtYWlsIjoibGFsdXByYXNhdGgwMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVYmZZeVhWbzQ1V0ZhWTB2ZHdlL0F1Z2RXRjh0NzVvdjEuZksuV2JTa05rMUtEVk9rd1I3YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4NzYyNTUxOCwiZXhwIjoxNjg3NzExOTE4fQ.H0DUzCdBsLnkteLrAFJG-UgWnX2g4LIoaPLQBRwPys8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"mohan\",\n    \"email\":\"mohan@gamil.com\",\n    \"mobile\":9895673823,\n    \"comment\":\"mind blowing !...\"\n}",
+							"raw": "{\n    \"name\":\"muthu\",\n    \"email\":\"muthu@gamil.com\",\n    \"mobile\":9895673823,\n    \"comment\":\"mind blowing !...\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1396,12 +1480,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_URL}}enquiry/6495afe8260e5fbe6787d81e",
+							"raw": "{{base_URL}}enquiry/64971f4135f5ee73597d2336",
 							"host": [
 								"{{base_URL}}enquiry"
 							],
 							"path": [
-								"6495afe8260e5fbe6787d81e"
+								"64971f4135f5ee73597d2336"
 							]
 						}
 					},
@@ -1409,9 +1493,21 @@
 				},
 				{
 					"name": "get all enquiry",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{base_URL}}enquiry/",
 							"host": [
