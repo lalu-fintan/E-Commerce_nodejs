@@ -157,11 +157,9 @@ const disLikeBlog = asyncHandler(async (req, res) => {
 
 //bug 5
 const uploadImages = asyncHandler(async (req, res) => {
-  console.log(req.files);
   const { id } = req.params;
-  const Uploader = (path) => {
-    cloudinaryUploadImg(path, "images");
-  };
+  const Uploader = (path) => cloudinaryUploadImg(path, "images");
+
   const urls = [];
   const files = req.files;
   for (const file of files) {
@@ -174,7 +172,9 @@ const uploadImages = asyncHandler(async (req, res) => {
   const findBlog = await Blog.findByIdAndUpdate(
     id,
     {
-      images: urls.map((file) => file),
+      images: urls.map((file) => {
+        return file;
+      }),
     },
     { new: true }
   );
@@ -185,7 +185,7 @@ const deleteImages = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const deleted = cloudinaryDeleteImg(id, "images");
-  res.status(200).json({ message: "Message deleted successfully" });
+  res.status(200).json({ message: "Image deleted successfully" });
 });
 
 module.exports = {

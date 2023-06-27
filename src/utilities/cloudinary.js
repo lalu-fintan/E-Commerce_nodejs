@@ -1,9 +1,10 @@
 const cloudinary = require("cloudinary");
 
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRETKEY,
+cloudinary.v2.config({
+  cloud_name: "danz8ugpr",
+  api_key: "624757829732576",
+  api_secret: "NFgeEY54D0irV_uTQXzmtPmSmaw",
+  secure: true,
 });
 
 const cloudinaryUploadImg = async (fileToUploads) => {
@@ -28,7 +29,7 @@ const cloudinaryDeleteImg = async (fileToRemove) => {
     cloudinary.uploader.destroy(fileToRemove, (result) => {
       resolve(
         {
-          URL: result.secure_url,
+          url: result.secure_url,
           asset_id: result.asset_id,
           public_id: result.public_id,
         },

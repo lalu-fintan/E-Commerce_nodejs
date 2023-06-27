@@ -21,7 +21,7 @@ router.put(
   authMidddleware,
   verifyToken,
   uploadPhoto.array("images", 2),
-  blogImgResize,
+  // blogImgResize,
   uploadImages
 );
 router.get("/", getBlog);

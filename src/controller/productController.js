@@ -191,11 +191,10 @@ const uploadImages = expressAsyncHandler(async (req, res) => {
   const files = req.files;
   for (const file of files) {
     const { path } = file;
-
     const newpath = await uploader(path);
     urls.push(newpath);
-    fs.unlinkSync(path);
     console.log({ urls });
+    fs.unlinkSync(path);
   }
   const images = urls.map((file) => {
     return file;
@@ -207,7 +206,7 @@ const deleteImages = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const deleted = cloudinaryDeleteImg(id, "images");
-  res.status(200).json({ message: "Message deleted successfully" });
+  res.status(200).json({ message: "Image deleted successfully" });
 });
 
 module.exports = {
